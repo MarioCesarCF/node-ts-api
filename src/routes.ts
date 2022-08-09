@@ -3,10 +3,11 @@ import CreateCourseService from './CreateCourseService';
 
 export function createCourse(req: Request, res: Response) {
   CreateCourseService.execute({
-    name: "Node", 
+    name: 'Node', 
     educator: "Cesar", 
-    duration: 10
+    duration: 10,
   });
+
   CreateCourseService.execute({
     name: "React", 
     educator: "Dione", 
