@@ -7,4 +7,4 @@ const express_1 = __importDefault(require("express"));
 const routes_1 = require("./routes");
 const app = (0, express_1.default)();
 app.get("/", routes_1.createCourse);
-app.listen(3333);
+app.listen(3333, () => console.log('Acesso a porta 3333.'));
