@@ -1,9 +1,9 @@
 import { Router } from "express"; 
 //importa o Router do express que permite usar as rotas neste aquivo e depois exportar a variavel que recebe o Router(), assim todas as rotas são criadas aqui e invocadas no server.ts
 
-import { CategoriesRepository } from "../repositories/CategoriesRepository";
+import { CategoriesRepository } from "../modules/cars/repositories/CategoriesRepository";
 
-import { CreateCategoryService } from "../services/CreateCategoryService";
+import { CreateCategoryService } from "../modules/cars/services/CreateCategoryService";
 
 const categoriesRoutes = Router();
 const categoriesRepository = new CategoriesRepository();
