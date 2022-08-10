@@ -1,4 +1,4 @@
-import { CategoriesRepository } from "../repositories/CategoriesRepository";
+import { ICategoriesRepository } from "../repositories/ICategoriesRepository"
 
 interface IRequest {
     name: string;
@@ -6,7 +6,7 @@ interface IRequest {
 }
 
 class CreateCategoryService {
-    constructor(private categoriesRepository: CategoriesRepository) {}
+    constructor(private categoriesRepository: ICategoriesRepository) {}
 //aplicação do princípio da inversão de dependencias (DIP). Não entendi bem como funciona, mas parece que ele cria um constructor usando a classe do repositório
 
     execute({ name, description }: IRequest): void {
