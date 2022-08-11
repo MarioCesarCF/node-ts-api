@@ -1,9 +1,16 @@
 import { parse } from "csv-parse";
 import fs from "fs";
+import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
+
+interface IImportCategories {
+  name: string;
+  description: string;
+}
 
 class ImportCategoryUseCase {
-  execute(file: Express.Multer.File): void {
-    
+  constructor(private categoriesRepository: ICategoriesRepository) {}
+
+  loadCategories(file: Express.Multer.File) {
     const stream = fs.createReadStream(file.path);
 
     const parseFile = parse();
@@ -13,6 +20,10 @@ class ImportCategoryUseCase {
     parseFile.on('data', async line => {
       console.log(line)
     })
+  }
+
+  execute(file: Express.Multer.File): void {    
+    
   }
 }
 
