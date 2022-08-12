@@ -8,22 +8,50 @@ interface IImportCategories {
 }
 
 class ImportCategoryUseCase {
-  constructor(private categoriesRepository: ICategoriesRepository) {}
+  constructor(private categoriesRepository: ICategoriesRepository) { }
 
-  loadCategories(file: Express.Multer.File) {
-    const stream = fs.createReadStream(file.path);
+  //essa parte toda ficou bem complicada de entender. Essa questão de colocar o tipo de 'tudo' é um pouco chata de lembrar. no loadCategories() os : vem seguido do tipo que no caso é Promise, mas o tipo da promise vem entre <> e é um array da classe IImportCategories.
+  loadCategories(file: Express.Multer.File): Promise<IImportCategories[]> {
+    return new Promise((resolve, reject) => {
+      const stream = fs.createReadStream(file.path);
+      const categories: IImportCategories[] = [];
 
-    const parseFile = parse();
+      const parseFile = parse();
 
-    stream.pipe(parseFile);
+      stream.pipe(parseFile);
 
-    parseFile.on('data', async line => {
-      console.log(line)
+      parseFile
+        .on('data', async line => {
+          const [name, description] = line;
+          categories.push({
+            name,
+            description,
+          })
+        })
+        .on("end", () => {
+          resolve(categories);
+        })
+        .on("error", (err) => {
+          reject(err);
+        })
     })
   }
 
-  execute(file: Express.Multer.File): void {    
-    
+  async execute(file: Express.Multer.File): Promise<void> {
+    const categories = await this.loadCategories(file);
+
+    categories.map(category => {
+      const { name, description } = category;
+
+      const existCategory = this.categoriesRepository.findByName(name);
+
+      if (!existCategory) {
+        this.categoriesRepository.create({
+          name,
+          description,
+        });
+      }
+    })
   }
 }
 
