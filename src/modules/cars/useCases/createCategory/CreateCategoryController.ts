@@ -4,7 +4,7 @@ import { Response, Request } from "express";
 class CreateCategoryController {
 constructor(private createCategoryUseCase: CreateCategoryUseCase) {}
 
-  //tod usecase tera apenas um controller e seguirá esse padrão de usar o handle
+  //todo usecase tera apenas um controller e seguirá esse padrão de usar o handle
   handle(req: Request, res: Response): Response {
     const { name, description } = req.body;
     

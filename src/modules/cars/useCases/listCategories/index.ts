@@ -10,4 +10,4 @@ const listCategoriesController = new ListCategoriesController(listCategoriesUseC
 export { listCategoriesController };
 
 
-//Esses index.ts não precisam ser informados no momento que são importados, pq quando a gente informa uma pasta ele já procura o idex.
+//Esses index.ts não precisam ser informados no momento que são importados, pq quando a gente informa uma pasta ele já procura o index.
